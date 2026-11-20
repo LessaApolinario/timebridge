@@ -33,11 +33,16 @@ export function CitySelector({
   const headingId = useId()
   const searchId = useId()
   const selectId = useId()
+
   const [query, setQuery] = useState("")
   const [candidateId, setCandidateId] = useState("")
+
   const searchField = useRef<HTMLInputElement>(null)
+
   const queryKey = searchKey(query)
+
   const atLimit = !replacing && selectedIds.length >= maximumCities
+
   const results = cities
     .filter((city) => {
       return (
@@ -55,6 +60,7 @@ export function CitySelector({
         first.name.localeCompare(second.name, "pt-BR")
       )
     })
+
   const activeCandidate = results.some(({ id }) => {
     return id === candidateId
   })
@@ -70,7 +76,7 @@ export function CitySelector({
   return (
     <form
       aria-labelledby={headingId}
-      className="rounded-xl border border-border bg-card p-4 sm:p-5"
+      className="rounded-2xl border border-border bg-card p-4 sm:p-5"
       onSubmit={(event) => {
         event.preventDefault()
 
@@ -106,7 +112,7 @@ export function CitySelector({
                 <Input
                   id={searchId}
                   ref={searchField}
-                  className="min-h-10 pl-9"
+                  className="min-h-10 bg-background pl-9"
                   type="search"
                   placeholder="Ex.: Brasil ou Tóquio"
                   value={query}
@@ -121,7 +127,7 @@ export function CitySelector({
               <Label htmlFor={selectId}>Cidade</Label>
               <NativeSelect
                 id={selectId}
-                className="w-full min-w-0 [&>select]:min-h-10"
+                className="w-full min-w-0 [&>select]:min-h-10 [&>select]:bg-background"
                 disabled={!results.length}
                 value={activeCandidate}
                 onChange={(event) => {
@@ -148,7 +154,7 @@ export function CitySelector({
             </div>
             <Button
               type="submit"
-              className="min-h-10"
+              className="min-h-10 rounded-full px-4"
               disabled={!activeCandidate}
             >
               <Plus aria-hidden="true" />

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react"
+import { act, fireEvent, render, screen, within } from "@testing-library/react"
 
 import { Timebridge } from "@/components/timebridge/timebridge"
 import { writePreferences } from "@/lib/local-preferences"
@@ -25,8 +25,13 @@ function observedClocks() {
   })
 }
 
+function referenceClock() {
+  return screen.getByLabelText(/^Horário de referência em /)
+}
+
 afterEach(() => {
   jest.restoreAllMocks()
+  jest.useRealTimers()
   window.history.replaceState(null, "", "/")
   window.localStorage.clear()
 
@@ -38,6 +43,86 @@ afterEach(() => {
 })
 
 describe("Timebridge", () => {
+  it("should update live, pause from the first edit and resume with Now", () => {
+    jest.useFakeTimers({ now: initialInstant + 750 })
+    const { unmount } = render(<Timebridge />)
+
+    expect(screen.getByText("Ao vivo")).toBeVisible()
+    expect(referenceClock()).toHaveTextContent("10:00:00")
+    act(() => {
+      jest.advanceTimersByTime(1_250)
+    })
+    expect(referenceClock()).toHaveTextContent("10:00:02")
+
+    const input = screen.getByRole("textbox", { name: "Hora (24 h)" })
+    fireEvent.change(input, { target: { value: "18:" } })
+    expect(screen.getByText("Horário selecionado")).toBeVisible()
+    expect(screen.getByRole("alert")).toBeVisible()
+    act(() => {
+      jest.advanceTimersByTime(3_000)
+    })
+    expect(referenceClock()).toHaveTextContent("10:00:02")
+
+    fireEvent.change(input, { target: { value: "18:30" } })
+    expect(referenceClock()).toHaveTextContent("18:30:00")
+    fireEvent.click(screen.getByRole("button", { name: "Agora" }))
+    expect(referenceClock()).toHaveTextContent("10:00:05")
+    act(() => {
+      jest.advanceTimersByTime(1_000)
+    })
+    expect(referenceClock()).toHaveTextContent("10:00:06")
+
+    const timersBeforeUnmount = jest.getTimerCount()
+    unmount()
+    expect(jest.getTimerCount()).toBeLessThan(timersBeforeUnmount)
+  })
+
+  it("should keep a valid shared instant fixed even when it equals the initial current time", () => {
+    jest.useFakeTimers({ now: initialInstant })
+    loadComparison()
+    render(<Timebridge />)
+
+    expect(screen.getByText("Horário selecionado")).toBeVisible()
+    act(() => {
+      jest.advanceTimersByTime(5_000)
+    })
+    expect(referenceClock()).toHaveAttribute(
+      "datetime",
+      new Date(initialInstant).toISOString(),
+    )
+    expect(referenceClock()).toHaveTextContent("10:00:00")
+  })
+
+  it("should persist 12-hour displays while keeping conversion inputs and copied times in 24 hours", async () => {
+    const writeText = jest.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText },
+    })
+    loadComparison(Date.UTC(2025, 0, 15, 18, 5, 9))
+    const view = render(<Timebridge />)
+
+    fireEvent.click(screen.getByRole("button", { name: "12 h" }))
+    expect(referenceClock()).toHaveTextContent("03:05:09 PM")
+    expect(observedClocks()).toEqual(["03:05 PM", "01:05 PM", "06:05 PM"])
+    expect(screen.getByRole("textbox", { name: "Hora (24 h)" })).toHaveValue(
+      "15:05",
+    )
+    fireEvent.click(screen.getByRole("button", { name: "Copiar horários" }))
+    await screen.findByText("Horários copiados.")
+    expect(writeText).toHaveBeenCalledWith(
+      expect.stringContaining("São Paulo · 15:05"),
+    )
+
+    view.unmount()
+    render(<Timebridge />)
+    expect(screen.getByRole("button", { name: "12 h" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    )
+    expect(referenceClock()).toHaveTextContent("03:05:09 PM")
+  })
+
   it("should copy and restore cities, instant, duration and work hours", async () => {
     const writeText = jest.fn().mockResolvedValue(undefined)
     Object.defineProperty(navigator, "clipboard", {

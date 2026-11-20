@@ -25,7 +25,7 @@ export function Timebridge() {
   if (!ready) {
     return (
       <section
-        className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8"
+        className="mt-4 min-h-52 animate-pulse rounded-2xl border border-border bg-card px-4 py-5 motion-reduce:animate-none sm:min-h-80"
         aria-busy="true"
         id="comparador"
       >

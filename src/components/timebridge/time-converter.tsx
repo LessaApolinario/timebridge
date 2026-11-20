@@ -18,6 +18,7 @@ interface TimeConverterProps {
   resolution?: LocalTimeResolution
   onEdit: (field: keyof LocalDateTime, value: string) => void
   onChooseInstant: (instant: number) => void
+  onNow: () => void
 }
 
 export function TimeConverter({
@@ -26,24 +27,21 @@ export function TimeConverter({
   resolution,
   onEdit,
   onChooseInstant,
+  onNow,
 }: TimeConverterProps) {
   const dateId = useId()
   const timeId = useId()
   const validationId = useId()
+
   const ambiguous = resolution?.kind === "ambiguous"
+
   const invalid =
     resolution?.kind === "invalid" || resolution?.kind === "nonexistent"
 
   return (
-    <div className="border-b border-border bg-card">
-      <div className="mx-auto grid max-w-7xl gap-3 px-4 py-4 sm:px-6 lg:px-8">
+    <div className="mt-5 rounded-2xl border border-border bg-card">
+      <div className="grid gap-3 p-3.5 sm:p-4">
         <div className="flex flex-wrap items-end gap-x-4 gap-y-3">
-          <div className="mr-auto min-w-36 self-center">
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              Cidade de referência
-            </p>
-            <p className="text-lg font-semibold">{reference.name}</p>
-          </div>
           <Label htmlFor={dateId} className="grid gap-1">
             Data
             <Input
@@ -51,7 +49,7 @@ export function TimeConverter({
               type="date"
               min={minimumDate}
               max={maximumDate}
-              className="min-h-10"
+              className="min-h-10 bg-background"
               value={local.date}
               aria-invalid={invalid}
               aria-describedby={resolution ? validationId : undefined}
@@ -67,7 +65,7 @@ export function TimeConverter({
               type="text"
               maxLength={5}
               placeholder="HH:mm"
-              className="min-h-10 w-25 tabular-nums"
+              className="min-h-10 w-24 bg-background tabular-nums"
               value={local.time}
               aria-invalid={invalid}
               aria-describedby={resolution ? validationId : undefined}
@@ -79,10 +77,8 @@ export function TimeConverter({
           <Button
             type="button"
             variant="outline"
-            className="min-h-10"
-            onClick={() => {
-              onChooseInstant(Date.now())
-            }}
+            className="min-h-10 rounded-full px-4"
+            onClick={onNow}
           >
             <Clock aria-hidden="true" /> Agora
           </Button>

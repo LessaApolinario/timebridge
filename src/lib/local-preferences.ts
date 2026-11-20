@@ -1,4 +1,5 @@
 import { cities, citiesById } from "@/features/timezones/data/cities"
+import type { HourFormat } from "./clock-format"
 import {
   defaultConfiguration,
   isCityId,
@@ -11,12 +12,14 @@ import {
 export interface Preferences {
   configuration: Configuration
   favorites: string[]
+  hourFormat?: HourFormat
 }
 
 const key = "timebridge.preferences.v1"
 const emptyPreferences: Preferences = {
   configuration: defaultConfiguration,
   favorites: [],
+  hourFormat: 24,
 }
 
 export function readPreferences(): Preferences {
@@ -62,6 +65,7 @@ export function readPreferences(): Preferences {
     return {
       configuration: { cityIds, referenceId, duration, work },
       favorites,
+      hourFormat: saved.hourFormat === 12 ? 12 : 24,
     }
   } catch {
     return emptyPreferences

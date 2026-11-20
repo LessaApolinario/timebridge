@@ -77,15 +77,24 @@ function parseInstant(value: string | null) {
   return instant
 }
 
+function shareParams(query: string) {
+  return query.length <= maxQueryLength ? new URLSearchParams(query) : null
+}
+
+export function hasSharedInstant(query: string) {
+  return parseInstant(shareParams(query)?.get("at") ?? null) !== null
+}
+
 export function restoreShareState(
   query: string,
   fallback: ShareState,
 ): ShareState {
-  if (query.length > maxQueryLength) {
+  const params = shareParams(query)
+
+  if (!params) {
     return fallback
   }
 
-  const params = new URLSearchParams(query)
   const sharedCities = selectedCityIds(params.get("cities")?.split(",") ?? [])
   const cityIds = sharedCities ?? fallback.cityIds
   const requestedReference = params.get("ref")

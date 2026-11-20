@@ -8,6 +8,7 @@ import {
   formatLocalDate,
   localDayDifference,
 } from "@/features/timezones/services/timezone-service"
+import { formatClock, type HourFormat } from "@/lib/clock-format"
 import {
   ArrowLeft,
   ArrowRight,
@@ -20,6 +21,7 @@ import {
 interface CityClockCardProps {
   city: City
   clock: ZonedTime
+  hourFormat: HourFormat
   referenceDate: string
   isReference: boolean
   isFavorite: boolean
@@ -48,6 +50,7 @@ function dayChangeLabel(days: number) {
 export function CityClockCard({
   city,
   clock,
+  hourFormat,
   referenceDate,
   isReference,
   isFavorite,
@@ -63,16 +66,18 @@ export function CityClockCard({
   const dayChange = dayChangeLabel(
     localDayDifference(clock.date, referenceDate),
   )
+  const { digits, period } = formatClock(clock.time, hourFormat)
 
   return (
     <Card
       role="article"
-      className={`min-w-0 gap-0 rounded-2xl border p-4 ring-0 sm:p-5 ${isReference ? "border-primary/40 bg-accent/65" : "border-border"}`}
+      className={`group/city min-w-0 gap-0 rounded-2xl border p-4 ring-0 sm:p-5 ${isReference ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card"}`}
+      data-reference={isReference || undefined}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <h3 className="text-lg leading-tight font-semibold">{city.name}</h3>
-          <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
+          <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground group-data-reference/city:text-primary-foreground/80">
             <MapPin aria-hidden="true" className="size-3.5" /> {city.country}
           </p>
         </div>
@@ -82,29 +87,33 @@ export function CityClockCard({
           size="icon"
           aria-label={`Favoritar ${city.name}`}
           aria-pressed={isFavorite}
+          className="group-data-reference/city:hover:bg-primary-foreground/15"
           onClick={onFavorite}
         >
           <Star
             aria-hidden="true"
-            className={isFavorite ? "fill-current text-primary" : ""}
+            className={isFavorite ? "fill-current" : ""}
           />
         </Button>
       </div>
-      <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+      <div className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1 sm:mt-7">
         <time
           dateTime={`${clock.date}T${clock.time}`}
-          className="text-[clamp(2.4rem,5vw,4rem)] leading-none font-semibold tracking-[-0.075em] tabular-nums"
+          className="whitespace-nowrap font-clock text-[clamp(2.15rem,4.4vw,4rem)] leading-none font-semibold tracking-[-0.075em] tabular-nums"
         >
-          {clock.time}
+          {digits}
+          {period && (
+            <span className="text-[0.32em] tracking-normal"> {period}</span>
+          )}
         </time>
-        <span className="text-xs font-semibold whitespace-nowrap text-muted-foreground">
+        <span className="text-xs font-medium whitespace-nowrap text-muted-foreground group-data-reference/city:text-primary-foreground/80">
           {clock.offset}
         </span>
       </div>
       <p className="mt-2 text-sm first-letter:uppercase">
         {formatLocalDate(clock.date)}
       </p>
-      <p className="mt-1 text-xs break-all text-muted-foreground">
+      <p className="mt-1 text-xs break-all text-muted-foreground group-data-reference/city:text-primary-foreground/80">
         {city.zone}
       </p>
       {dayChange && (
@@ -114,21 +123,29 @@ export function CityClockCard({
       )}
       <div className="mt-auto pt-4">
         {isReference ? (
-          <Badge className="mb-2 min-h-7 rounded-md">Referência</Badge>
+          <Badge
+            variant="outline"
+            className="mb-2 min-h-7 rounded-full border-primary-foreground/40 text-primary-foreground"
+          >
+            Referência
+          </Badge>
         ) : (
           <Button
             type="button"
             variant="outline"
             size="sm"
-            className="mb-2"
+            className="mb-2 rounded-full"
             onClick={onReference}
             aria-label={`Usar ${city.name} como referência`}
           >
             Usar como referência
           </Button>
         )}
-        <Separator />
-        <div className="flex flex-wrap gap-0.5 pt-1.5">
+        <Separator
+          className="group-data-reference/city:bg-primary-foreground/30"
+          aria-hidden="true"
+        />
+        <div className="flex flex-wrap gap-0.5 pt-1.5 [&_button]:rounded-full group-data-reference/city:[&_button:hover]:bg-primary-foreground/15">
           <Button
             type="button"
             size="icon"

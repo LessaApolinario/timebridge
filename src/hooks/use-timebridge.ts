@@ -13,13 +13,19 @@ import type {
   LocalDateTime,
   LocalTimeResolution,
 } from "@/features/timezones/models/time-conversion"
+import type { HourFormat } from "@/lib/clock-format"
 import { timezones } from "@/lib/di/container"
 import {
   browserCityId,
   readPreferences,
   writePreferences,
 } from "@/lib/local-preferences"
-import { isCityId, restoreShareState, type ShareState } from "@/lib/url-state"
+import {
+  hasSharedInstant,
+  isCityId,
+  restoreShareState,
+  type ShareState,
+} from "@/lib/url-state"
 import { useEffect, useState } from "react"
 
 interface TimeDraft {
@@ -29,13 +35,16 @@ interface TimeDraft {
 
 function readInitialState() {
   const preferences = readPreferences()
-  const state = restoreShareState(window.location.search, {
+  const query = window.location.search
+  const state = restoreShareState(query, {
     ...preferences.configuration,
     instant: Date.now(),
   })
 
   return {
     state,
+    isLive: !hasSharedInstant(query),
+    hourFormat: preferences.hourFormat ?? 24,
     favorites: preferences.favorites,
     suggestedCityId: browserCityId(),
   }
@@ -44,6 +53,8 @@ function readInitialState() {
 export function useTimebridge() {
   const [initial] = useState(readInitialState)
   const [state, setState] = useState(initial.state)
+  const [isLive, setIsLive] = useState(initial.isLive)
+  const [hourFormat, setHourFormat] = useState<HourFormat>(initial.hourFormat)
   const [favorites, setFavorites] = useState(initial.favorites)
   const [draft, setDraft] = useState<TimeDraft | null>(null)
   const [workDrafts, setWorkDrafts] = useState<Record<string, WorkHours>>({})
@@ -55,13 +66,48 @@ export function useTimebridge() {
   const { cityIds, referenceId, duration, work } = state
 
   useEffect(() => {
+    if (!isLive) {
+      return
+    }
+
+    let timeout: number
+
+    function scheduleTick() {
+      const delay = 1_000 - (Date.now() % 1_000)
+
+      timeout = window.setTimeout(() => {
+        const instant = Date.now()
+
+        setState((current) => {
+          return { ...current, instant }
+        })
+        scheduleTick()
+      }, delay)
+    }
+
+    scheduleTick()
+    return () => {
+      window.clearTimeout(timeout)
+    }
+  }, [isLive])
+
+  useEffect(() => {
     if (preferencesChanged) {
       writePreferences({
         configuration: { cityIds, referenceId, duration, work },
         favorites,
+        hourFormat,
       })
     }
-  }, [cityIds, referenceId, duration, work, favorites, preferencesChanged])
+  }, [
+    cityIds,
+    referenceId,
+    duration,
+    work,
+    favorites,
+    hourFormat,
+    preferencesChanged,
+  ])
 
   function commitInstant(instant: number) {
     setDraft(null)
@@ -70,7 +116,18 @@ export function useTimebridge() {
     })
   }
 
+  function goLive() {
+    commitInstant(Date.now())
+    setIsLive(true)
+  }
+
+  function chooseHourFormat(format: HourFormat) {
+    setPreferencesChanged(true)
+    setHourFormat(format)
+  }
+
   function updateLocal(field: keyof LocalDateTime, value: string) {
+    setIsLive(false)
     const next = { date: local.date, time: local.time, [field]: value }
     const resolution = timezones.resolve(next, reference.zone)
 
@@ -211,6 +268,8 @@ export function useTimebridge() {
 
   return {
     state,
+    isLive,
+    hourFormat,
     reference,
     committedTime,
     local,
@@ -219,6 +278,8 @@ export function useTimebridge() {
     workDrafts,
     suggestedCityId: initial.suggestedCityId,
     commitInstant,
+    goLive,
+    chooseHourFormat,
     updateLocal,
     chooseCity,
     removeCity,

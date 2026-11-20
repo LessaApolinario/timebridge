@@ -40,15 +40,17 @@ export function MeetingPlanner({
   const result = useMemo(() => {
     return availability.calculate(date, reference.zone, participants, duration)
   }, [date, reference.zone, participants, duration])
+
   const invalidHours = participants.some(({ hours }) => {
     return !validWorkHours(hours)
   })
+
   const visibleResult = !timePending && !invalidHours && result.slots.length > 0
 
   return (
     <Card
       role="region"
-      className="mt-9 gap-0 rounded-2xl border border-border p-4 ring-0 sm:p-6"
+      className="mt-9 min-w-0 gap-0 scroll-mt-6 rounded-2xl border border-border p-4 ring-0 sm:p-6"
       aria-labelledby="planner-title"
       id="planejador"
     >

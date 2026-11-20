@@ -50,7 +50,7 @@ export function ShareControls({
         <Button
           type="button"
           variant="outline"
-          className="min-h-9"
+          className="min-h-10 rounded-full px-3.5"
           disabled={disableSummary}
           onClick={() => {
             void copy(summary, "Horários copiados.")
@@ -60,8 +60,7 @@ export function ShareControls({
         </Button>
         <Button
           type="button"
-          variant="outline"
-          className="min-h-9"
+          className="min-h-10 rounded-full px-3.5"
           disabled={disableLink}
           onClick={() => {
             void copy(link, "Link copiado.")
@@ -77,7 +76,7 @@ export function ShareControls({
         <label className="grid gap-1 text-sm font-medium">
           Texto para copiar
           <textarea
-            className="tb-field w-full min-w-0 resize-y"
+            className="min-h-10 w-full min-w-0 resize-y rounded-xl border border-input bg-background px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-ring"
             readOnly
             value={feedback.fallback}
             onFocus={(event) => {

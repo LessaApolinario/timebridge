@@ -11,6 +11,15 @@ interface OverlapTimelineProps {
   referenceZone: string
 }
 
+const slotClass =
+  "inline-flex h-5 min-w-3.5 items-center justify-center rounded-sm px-0.5 text-[0.65rem] font-semibold"
+
+const slotColors = {
+  common: "bg-primary text-primary-foreground",
+  working: "bg-accent text-accent-foreground",
+  unavailable: "bg-muted text-muted-foreground",
+}
+
 export function OverlapTimeline({
   slots,
   participants,
@@ -38,19 +47,28 @@ export function OverlapTimeline({
         aria-label="Legenda da disponibilidade"
       >
         <li>
-          <span className="tb-slot tb-common mr-1" aria-hidden="true">
+          <span
+            className={`${slotClass} ${slotColors.common} mr-1`}
+            aria-hidden="true"
+          >
             ✓
           </span>{" "}
           Horário comum
         </li>
         <li>
-          <span className="tb-slot tb-work mr-1" aria-hidden="true">
+          <span
+            className={`${slotClass} ${slotColors.working} mr-1`}
+            aria-hidden="true"
+          >
             •
           </span>{" "}
           Dentro da jornada
         </li>
         <li>
-          <span className="tb-slot mr-1" aria-hidden="true">
+          <span
+            className={`${slotClass} ${slotColors.unavailable} mr-1`}
+            aria-hidden="true"
+          >
             –
           </span>{" "}
           Fora da jornada
@@ -122,10 +140,10 @@ export function OverlapTimeline({
                         ? "Dentro da jornada"
                         : "Fora da jornada"
                     const style = slot.common
-                      ? "tb-common"
+                      ? slotColors.common
                       : working
-                        ? "tb-work"
-                        : ""
+                        ? slotColors.working
+                        : slotColors.unavailable
                     const symbol = slot.common ? "✓" : working ? "•" : "–"
 
                     return (
@@ -135,7 +153,7 @@ export function OverlapTimeline({
                         title={`${headings[index].label} · ${status}`}
                       >
                         <span
-                          className={`tb-slot w-full ${style}`}
+                          className={`${slotClass} w-full ${style}`}
                           aria-hidden="true"
                         >
                           {symbol}
