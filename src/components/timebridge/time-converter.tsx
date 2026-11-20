@@ -10,6 +10,7 @@ import {
 } from "@/features/timezones/models/time-conversion"
 import { timezones } from "@/lib/di/container"
 import { Clock } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useId } from "react"
 
 interface TimeConverterProps {
@@ -29,6 +30,9 @@ export function TimeConverter({
   onChooseInstant,
   onNow,
 }: TimeConverterProps) {
+  const t = useTranslations("Converter")
+  const cityName = useTranslations("Cities")
+
   const dateId = useId()
   const timeId = useId()
   const validationId = useId()
@@ -43,7 +47,7 @@ export function TimeConverter({
       <div className="grid gap-3 p-3.5 sm:p-4">
         <div className="flex flex-wrap items-end gap-x-4 gap-y-3">
           <Label htmlFor={dateId} className="grid gap-1">
-            Data
+            {t("date")}
             <Input
               id={dateId}
               type="date"
@@ -59,7 +63,7 @@ export function TimeConverter({
             />
           </Label>
           <Label htmlFor={timeId} className="grid gap-1">
-            Hora (24 h)
+            {t("time")}
             <Input
               id={timeId}
               type="text"
@@ -80,7 +84,7 @@ export function TimeConverter({
             className="min-h-10 rounded-full px-4"
             onClick={onNow}
           >
-            <Clock aria-hidden="true" /> Agora
+            <Clock aria-hidden="true" /> {t("now")}
           </Button>
         </div>
         {resolution?.kind === "invalid" && (
@@ -89,7 +93,7 @@ export function TimeConverter({
             className="text-sm text-destructive"
             id={validationId}
           >
-            Informe uma data entre 1970 e 2099 e um horário no formato HH:mm.
+            {t("invalid")}
           </p>
         )}
         {resolution?.kind === "nonexistent" && (
@@ -98,8 +102,7 @@ export function TimeConverter({
             className="text-sm text-destructive"
             id={validationId}
           >
-            Esse horário não existe em {reference.name} nessa data devido a uma
-            mudança de fuso. Escolha outro horário.
+            {t("nonexistent", { city: cityName(reference.id) })}
           </p>
         )}
         {ambiguous && (
@@ -108,8 +111,7 @@ export function TimeConverter({
             aria-describedby={validationId}
           >
             <legend id={validationId} className="mb-2 text-sm font-medium">
-              Esse horário ocorre duas vezes em {reference.name}. Escolha a
-              ocorrência.
+              {t("ambiguous", { city: cityName(reference.id) })}
             </legend>
             {resolution.instants.map((instant, index) => {
               const { offset } = timezones.at(instant, reference.zone)
@@ -122,7 +124,7 @@ export function TimeConverter({
                     onChooseInstant(instant)
                   }}
                 >
-                  {index + 1}ª ocorrência · {offset}
+                  {t("occurrence", { index: index + 1, offset })}
                 </Button>
               )
             })}

@@ -1,0 +1,136 @@
+{
+  "Metadata": {
+    "title": "TimeBridge | Comparador de fusos horários",
+    "description": "Compare horários entre cidades, converta datas e encontre horários em comum para reuniões internacionais."
+  },
+  "Home": {
+    "title": "Comparador de fusos horários",
+    "aboutTitle": "Como funciona a comparação",
+    "about": "O TimeBridge converte o mesmo instante entre cidades e aplica o deslocamento UTC de cada fuso na data escolhida, incluindo mudanças de horário de verão.",
+    "loading": "Carregando comparador de horários…"
+  },
+  "Header": {
+    "home": "TimeBridge, início",
+    "navigation": "Principal",
+    "cities": "Cidades",
+    "planner": "Planejador",
+    "language": "Idioma"
+  },
+  "ReferenceClock": {
+    "live": "Ao vivo",
+    "selected": "Horário selecionado",
+    "timeLabel": "Horário de referência em {city}, {time}",
+    "location": "{city}<country>, {countryName}</country>",
+    "clockFormat": "Formato dos relógios",
+    "hourOption": "{hours} h"
+  },
+  "Clock": {
+    "am": "AM",
+    "pm": "PM"
+  },
+  "CityCard": {
+    "dayBefore": "Dia anterior",
+    "dayAfter": "Dia seguinte",
+    "daysBefore": "{count, plural, one {# dia antes} other {# dias antes}}",
+    "daysAfter": "{count, plural, one {# dia depois} other {# dias depois}}",
+    "favorite": "Favoritar {city}",
+    "reference": "Referência",
+    "setReference": "Usar como referência",
+    "referenceLabel": "Usar {city} como referência",
+    "moveBefore": "Mover {city} para antes",
+    "moveAfter": "Mover {city} para depois",
+    "replace": "Trocar {city}",
+    "remove": "Remover {city}"
+  },
+  "Comparison": {
+    "title": "Horários locais",
+    "description": "Compare de 2 a 5 cidades ao mesmo tempo.",
+    "draft": "O relógio e os cartões mostram o último horário confirmado.",
+    "cancel": "Cancelar troca"
+  },
+  "CitySelector": {
+    "replace": "Trocar {city}",
+    "title": "Adicionar cidade",
+    "limit": "Limite de cinco cidades atingido. Remova ou troque uma cidade para continuar.",
+    "search": "Buscar por cidade ou país",
+    "placeholder": "Ex.: Brasil ou Tóquio",
+    "city": "Cidade",
+    "noOptions": "Sem opções",
+    "deviceZone": "fuso do dispositivo",
+    "confirm": "Confirmar troca",
+    "add": "Adicionar",
+    "empty": "Nenhuma cidade encontrada.",
+    "favorite": "Favorita"
+  },
+  "Converter": {
+    "date": "Data",
+    "time": "Hora (24 h)",
+    "now": "Agora",
+    "invalid": "Informe uma data entre 1970 e 2099 e um horário no formato HH:mm.",
+    "nonexistent": "Esse horário não existe em {city} nessa data devido a uma mudança de fuso. Escolha outro horário.",
+    "ambiguous": "Esse horário ocorre duas vezes em {city}. Escolha a ocorrência.",
+    "occurrence": "{index}ª ocorrência · {offset}"
+  },
+  "Share": {
+    "unavailable": "Cópia automática indisponível. Selecione e copie o texto abaixo.",
+    "timesCopied": "Horários copiados.",
+    "copyTimes": "Copiar horários",
+    "linkCopied": "Link copiado.",
+    "copyLink": "Copiar link",
+    "fallback": "Texto para copiar"
+  },
+  "Planner": {
+    "title": "Planejador de reuniões",
+    "referenceTimes": "Horários em {city} · {date}",
+    "duration": "Duração da reunião",
+    "minutes": "{minutes} min",
+    "workingHours": "Jornadas locais",
+    "start": "Início",
+    "end": "Fim",
+    "invalidHours": "Use HH:mm com fim após o início no mesmo dia.",
+    "suggestions": "Sugestões para {duration} minutos",
+    "noSuggestions": "Nenhum horário em comum para {duration} minutos. Ajuste as jornadas, a data ou a duração.",
+    "timePending": "Conclua a conversão para atualizar o planejador.",
+    "hoursPending": "Ajuste as jornadas para comparar a disponibilidade.",
+    "noIntervals": "Não há intervalos disponíveis nessa data."
+  },
+  "Timeline": {
+    "title": "Disponibilidade ao longo do dia",
+    "legend": "Legenda da disponibilidade",
+    "common": "Horário comum",
+    "working": "Dentro da jornada",
+    "unavailable": "Fora da jornada",
+    "caption": "Disponibilidade em intervalos de até 30 minutos, no fuso da referência",
+    "city": "Cidade",
+    "range": "{start} ({startOffset}) a {end} ({endOffset})"
+  },
+  "Cities": {
+    "sao-paulo": "São Paulo",
+    "new-york": "Nova York",
+    "london": "Londres",
+    "shanghai": "Xangai",
+    "manaus": "Manaus",
+    "recife": "Recife",
+    "buenos-aires": "Buenos Aires",
+    "santiago": "Santiago",
+    "bogota": "Bogotá",
+    "mexico-city": "Cidade do México",
+    "los-angeles": "Los Angeles",
+    "chicago": "Chicago",
+    "toronto": "Toronto",
+    "lisbon": "Lisboa",
+    "paris": "Paris",
+    "berlin": "Berlim",
+    "madrid": "Madri",
+    "cairo": "Cairo",
+    "johannesburg": "Joanesburgo",
+    "dubai": "Dubai",
+    "new-delhi": "Nova Déli",
+    "singapore": "Singapura",
+    "seoul": "Seul",
+    "tokyo": "Tóquio",
+    "adelaide": "Adelaide",
+    "sydney": "Sydney",
+    "auckland": "Auckland"
+  }
+}

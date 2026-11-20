@@ -1,5 +1,4 @@
 import type { TimezoneService } from "@/interfaces/timezones/timezone-service.interface"
-
 import {
   dayMs,
   maximumDate,
@@ -15,10 +14,6 @@ const formatters = new Map<string, Intl.DateTimeFormat>()
 const recentDays = new Map<string, CivilDay>()
 const maxCachedDays = 8
 const zoneSearchMargin = 16 * 60 * minuteMs
-const dayLabelFormatter = new Intl.DateTimeFormat("pt-BR", {
-  dateStyle: "full",
-  timeZone: "UTC",
-})
 
 interface CivilDay {
   ranges: InstantRange[]
@@ -182,10 +177,6 @@ function resolve(local: LocalDateTime, zone: string): LocalTimeResolution {
   }
 
   return { kind: instants.length === 1 ? "unique" : "ambiguous", instants }
-}
-
-export function formatLocalDate(date: string) {
-  return dayLabelFormatter.format(Date.parse(`${date}T00:00:00Z`))
 }
 
 export function localDayDifference(date: string, referenceDate: string) {

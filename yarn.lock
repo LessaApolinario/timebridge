@@ -467,6 +467,44 @@
   resolved "https://registry.yarnpkg.com/@dotenvx/primitives/-/primitives-0.8.0.tgz#25f3af8f876717deb00b21c64df8a7ba05d16b2c"
   integrity sha512-VYJy0uhFm9zTJ1TxBaW/pA8bjbOM/OttaNMwZ1RHG4JKyRG7DhSdiqD1ipQoAyoD22olUtxbP78W9xY3Wd11bg==
 
+"@eloqnt/config@^0.1.2", "@eloqnt/config@~0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@eloqnt/config/-/config-0.1.2.tgz#0523b403856dd1e66588e6741a403b1d0a3e7788"
+  integrity sha512-0pdjiCFur3M1fxuoPIoLS/ElTNerOdmkjToiLi399ITOLE/HRvHxJ5OjuOPQqPIZcbYXr2+WAWu3dnXMjt/WZg==
+
+"@eloqnt/extractor@~0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@eloqnt/extractor/-/extractor-0.1.0.tgz#11ff08896e9db4c02637379914392fb6a0938ebe"
+  integrity sha512-ZesGo0H7jCqGLvCE2e0vyUNhRPBnIRc3xuCtCMsrSXTc+DTtjhXfyF+BtCmDk2WVEgExL0e8Y3bJQygjmr3qdw==
+  dependencies:
+    "@eloqnt/messages" "~0.1.0"
+    "@swc/core" "~1.16.0"
+    next-intl-swc-plugin-extractor "4.15.1"
+
+"@eloqnt/format-json@~0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@eloqnt/format-json/-/format-json-0.1.1.tgz#84eb86ebbd1eba41680f6431e660cab2fa367611"
+  integrity sha512-Pp8DZPMSWBZy8CydZ293LhXnopdiIVdKO0z//fWFA+Cq1CK9vk2DdoigEFxjWl4CqYfXrRQYPdaKEKTC/9e1CQ==
+  dependencies:
+    "@eloqnt/config" "^0.1.2"
+
+"@eloqnt/format-po@~0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@eloqnt/format-po/-/format-po-0.1.2.tgz#2af472e2e863cf0024144735b59f93e83e523b9d"
+  integrity sha512-bohkA1SmJ9rJQG+tNsY8gWrdSo+pJazdjI+dTW+Wt2eg+UuwejXuYOkZDVcWRBCt6MH1dhHo0UuDau0jUmu/+Q==
+  dependencies:
+    "@eloqnt/config" "^0.1.2"
+    po-parser "^2.2.0"
+
+"@eloqnt/messages@~0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@eloqnt/messages/-/messages-0.1.0.tgz#5cae533dc583449b6ae91fb90d0d1ef6ca63a319"
+  integrity sha512-/YIr/bPaRCJmPGR5OrqVoado0j5ijcD7q95jZlkIzd0ipmEM4s+805c9PafoLUKCrudMEI4gqIUsZ24hZ0d2pQ==
+  dependencies:
+    "@eloqnt/config" "~0.1.2"
+    "@eloqnt/format-json" "~0.1.1"
+    "@eloqnt/format-po" "~0.1.2"
+
 "@emnapi/core@^1.11.1":
   version "1.11.3"
   resolved "https://registry.yarnpkg.com/@emnapi/core/-/core-1.11.3.tgz#5e95348a42cd1e06f0b9aa380cd74091daa4d520"
@@ -590,6 +628,30 @@
   version "0.2.12"
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.12.tgz#afefe785949f16ac4cdd1e695935a321572dd56a"
   integrity sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==
+
+"@formatjs/fast-memoize@3.1.7", "@formatjs/fast-memoize@^3.1.0":
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/@formatjs/fast-memoize/-/fast-memoize-3.1.7.tgz#5f79b3756e4bcb5faee47b3a2f01216e1212c9e4"
+  integrity sha512-zXfhLpvA6T7+efdt9JLbBwZ00tT7NsBMDVnDu8rpHeNNv8KfRZAMo2gkG0k9lK/Nzc//3kJ9pImsfuJxk3KhUA==
+
+"@formatjs/icu-messageformat-parser@3.5.23", "@formatjs/icu-messageformat-parser@^3.4.0":
+  version "3.5.23"
+  resolved "https://registry.yarnpkg.com/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-3.5.23.tgz#4812fd6d3adf844036108697f0486bf0464b2d5f"
+  integrity sha512-iB1fYfhtSGd8uH9A8b1m01Ujcv6QtQnJasefP3jPApmz72L/zNipzf3BdoinTMd1xuviVChjUJWL60iTwjUQ+w==
+  dependencies:
+    "@formatjs/icu-skeleton-parser" "2.1.13"
+
+"@formatjs/icu-skeleton-parser@2.1.13":
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/@formatjs/icu-skeleton-parser/-/icu-skeleton-parser-2.1.13.tgz#b51ec5c826b93c34d4e45390a4d32d05c222cf07"
+  integrity sha512-IdAJ9NrHn7AF0zqncD9UpxQozTYyJtbwwrZnJMEKVxTcOOXtVkUb2XYTpNOGTAv58NCsk0rjRB9G+i2SvBmGAQ==
+
+"@formatjs/intl-localematcher@^0.8.1":
+  version "0.8.14"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-localematcher/-/intl-localematcher-0.8.14.tgz#edae3d2f0a651b6a2c2abc1080fbcf676e7ffc2f"
+  integrity sha512-8O7V38QmbB11+ryJ3KM/znrzXtiqgpXzqNoqDsndHZZ5/zDKTTL+cf5F0mzXkQEwhx8IlWnqYvEovf2S5EwLTw==
+  dependencies:
+    "@formatjs/fast-memoize" "3.1.7"
 
 "@humanfs/core@^0.19.2":
   version "0.19.2"
@@ -1299,6 +1361,11 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
+"@schummar/icu-type-parser@1.21.5":
+  version "1.21.5"
+  resolved "https://registry.yarnpkg.com/@schummar/icu-type-parser/-/icu-type-parser-1.21.5.tgz#75989085bbbf80ee325874a0137437bde77e9baf"
+  integrity sha512-bXHSaW5jRTmke9Vd0h5P7BtWZG9Znqb8gSDxZnxaGSJnGwPLDPfS+3g0BKzeWqzgZPsIVZkM7m2tbo18cm5HBw==
+
 "@sec-ant/readable-stream@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@sec-ant/readable-stream/-/readable-stream-0.4.1.tgz#60de891bb126abfdc5410fdc6166aca065f10a0c"
@@ -1357,12 +1424,105 @@
   dependencies:
     "@sinonjs/commons" "^3.0.1"
 
+"@swc/core-darwin-arm64@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.16.22.tgz#5d4553d871b08df1bfd98d7dc8d61d352928163a"
+  integrity sha512-PddkOjOK3MK01AVOvqG309iAJ0hn5vK37ug9g5Zt5e2aWF3IhVLdDLjMePXts1zi8yc4ild2h9FYCkVYb5+Qcw==
+
+"@swc/core-darwin-x64@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-x64/-/core-darwin-x64-1.16.22.tgz#f7806fd80b794c594f742fc533740a529053310a"
+  integrity sha512-Zzia5cuIQFLTfZyf5mC1JvRMPW1VlxbvkZ0qNESoD4okE6T6Us2ZNVZ5XMVELqkYNw9eL2GeuMJgDIHBdYo7Gg==
+
+"@swc/core-linux-arm-gnueabihf@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.16.22.tgz#4b8cad8f003f507670b2573a2656591d3ffe9163"
+  integrity sha512-GI6VICiuYc7mb61XenLtiEGoOXTXDdUda8w0bu29Mh3Z6rhuTkAiBAdDFpdww2QNV0iACY5ylUSL127I6Nx8yQ==
+
+"@swc/core-linux-arm64-gnu@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.16.22.tgz#24520de5a1c239ae245f955255f13d16ea306e52"
+  integrity sha512-Ic+qrMmV78QdlG9irJuc/37xSqY7+5ZFhg4kaYbF82UQkaEfWgqGSUbU75Y4To21eaBB07c05kbXmTWTrvPURA==
+
+"@swc/core-linux-arm64-musl@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.16.22.tgz#fadcd4f7840b9ddc1c0add44209d7dec1c2c4500"
+  integrity sha512-ophleEwlj0SqkzYPDJ7xMPK0+MnWfc4+u9GzDYLLFG1TkIJuwj0rHNWto4MmKo00TylHFwGx9+5bLs/+YZ00IQ==
+
+"@swc/core-linux-ppc64-gnu@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-ppc64-gnu/-/core-linux-ppc64-gnu-1.16.22.tgz#88a8debf723567cbc46c3e08516524438d43a858"
+  integrity sha512-/4kR7SafFsVqY8N4HSepTs4Ni9YA0OY6n/SVBk/V15PhDiw97stG9SVqvgc8EzC+3XOe4pTmwlvFLWzNYfuNWg==
+
+"@swc/core-linux-s390x-gnu@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-s390x-gnu/-/core-linux-s390x-gnu-1.16.22.tgz#d858cdfb3ab90bcf255a5c54122747192dbb5f0d"
+  integrity sha512-b3GQqKmHBHUFQby1sh/QLtNQMMXTSBUhnmXcJ5qSrWbkYnhljIW3Y+30eMrrxCfy7HXLLDug1sjlhJDhf3tPhA==
+
+"@swc/core-linux-x64-gnu@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.16.22.tgz#c1d2dbe2f0d894b7cd5d2f03a973e699baa48108"
+  integrity sha512-u9hdfNEI3oI/dTRJ+In8G32EgfFpZDvMoI5elIERl6/XfaIzE9gpv4WomhKblAXA1+EYyLfDCS1EFFKQlBXTQQ==
+
+"@swc/core-linux-x64-musl@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.16.22.tgz#2e2af1e2ebaa6e9f8415eaa8198372fa999686a0"
+  integrity sha512-C3YVRL717kKSSU8n6HaC7sesFSGnHjRuHN3609Wl4epPYVDDutzD6aj7CMcx9cg3WWJ/oE8woDZ8qrCfzmxvnw==
+
+"@swc/core-win32-arm64-msvc@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.16.22.tgz#4f0ce9b55874b43c1aea1322129b0d5a0bac4d82"
+  integrity sha512-+MpNuE45LMFo+6RF8vMUqZPmaOfRQIuzCUHJ+jSXwEhiR5KHeZiQ9MaJglZRDeMuML67voCiFLrxqYTqGCbcCQ==
+
+"@swc/core-win32-ia32-msvc@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.16.22.tgz#89c38054e74929a0d896b53fc43a93c871249afe"
+  integrity sha512-z1p/CMDSRqvsE5Gs7axHVl6p+2zjoQTYuGcZ/q+3PMjAxx2bo/+lkpG9ot+725e6lj9os3WwYQrncmOWKVDrEQ==
+
+"@swc/core-win32-x64-msvc@1.16.22":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.16.22.tgz#62e4cf7fcd661c915f8014fdb1de03a503abce37"
+  integrity sha512-IyBPJn/SpXsh7i5ZLfQUPJ+R+fuELPI7Sz51igmYMTv2wdnDn/tqnIlAUwQe6AgnclbuJdbOb6crUbyN/zwMzw==
+
+"@swc/core@~1.16.0":
+  version "1.16.22"
+  resolved "https://registry.yarnpkg.com/@swc/core/-/core-1.16.22.tgz#1167c1df0769c310106868143c8dda609d913a43"
+  integrity sha512-kFqhtSmmNSZqJXIK0l9rF+oNg2efaZoeNbN/4qwbNTWfMRKApc6n7rKx827bw8K+4kmu7iH0LZ144QJTQzulHw==
+  dependencies:
+    "@swc/counter" "^0.1.3"
+    "@swc/types" "^0.1.28"
+  optionalDependencies:
+    "@swc/core-darwin-arm64" "1.16.22"
+    "@swc/core-darwin-x64" "1.16.22"
+    "@swc/core-linux-arm-gnueabihf" "1.16.22"
+    "@swc/core-linux-arm64-gnu" "1.16.22"
+    "@swc/core-linux-arm64-musl" "1.16.22"
+    "@swc/core-linux-ppc64-gnu" "1.16.22"
+    "@swc/core-linux-s390x-gnu" "1.16.22"
+    "@swc/core-linux-x64-gnu" "1.16.22"
+    "@swc/core-linux-x64-musl" "1.16.22"
+    "@swc/core-win32-arm64-msvc" "1.16.22"
+    "@swc/core-win32-ia32-msvc" "1.16.22"
+    "@swc/core-win32-x64-msvc" "1.16.22"
+
+"@swc/counter@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@swc/counter/-/counter-0.1.3.tgz#cc7463bd02949611c6329596fccd2b0ec782b0e9"
+  integrity sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==
+
 "@swc/helpers@0.5.23":
   version "0.5.23"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.5.23.tgz#19287d0d86d962b111376039a50c792902c9a86a"
   integrity sha512-5lSsMOTXURePglDfvuAQUqkGek9Hg2kksOYay2m0+XR++b2NWYL/4sWyuvVBIs8oKnJaxkdi9whaL/sqN13afw==
   dependencies:
     tslib "^2.8.0"
+
+"@swc/types@^0.1.28":
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/@swc/types/-/types-0.1.28.tgz#e3cd892383fba3b8904c40518bbe1265a50753f2"
+  integrity sha512-V6Mnml8v09QALx6K0elJ7o9K/MkVDtW3t6L+7Ou/JcWtb3xwId2AH4FeOceySd2JaO87IMw4+6vSZxLm34LPbw==
+  dependencies:
+    "@swc/counter" "^0.1.3"
 
 "@tailwindcss/node@4.3.3":
   version "4.3.3"
@@ -2459,6 +2619,11 @@ conf@^10.2.0:
     onetime "^5.1.2"
     pkg-up "^3.1.0"
     semver "^7.3.5"
+
+content-type@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/content-type/-/content-type-2.1.0.tgz#d9389c43c0a8cf6a355db464d21e07092a40493a"
+  integrity sha512-mj7UPXE0jaqaOsukNZRUEfEi2AcL7C/vwmwcHV0O97eO1E1pxBZuyjlZrx5seTaNBg1U6+o35wpa35Qfcc+7ag==
 
 convert-source-map@^2.0.0:
   version "2.0.0"
@@ -3597,6 +3762,13 @@ iconv-lite@0.6.3:
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
+icu-minify@^4.15.1, icu-minify@^4.15.2:
+  version "4.15.2"
+  resolved "https://registry.yarnpkg.com/icu-minify/-/icu-minify-4.15.2.tgz#54d48d9041faa2b7206bba7dab4a4233a3e3c6f5"
+  integrity sha512-IsgBR7/1RBkYWUqP2wS+vE9BBBfH4HjNjDbSPF3uK2Jjlzlsd7R+loUhjEEUySU6tjGmUIuft7w3qp7PI0KkXA==
+  dependencies:
+    "@formatjs/icu-messageformat-parser" "^3.4.0"
+
 ignore@^5.2.0, ignore@^5.3.0:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
@@ -3641,6 +3813,14 @@ internal-slot@^1.1.0:
     es-errors "^1.3.0"
     hasown "^2.0.2"
     side-channel "^1.1.0"
+
+"intl-messageformat@^11.1.0 || ^12.0.0":
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/intl-messageformat/-/intl-messageformat-12.2.0.tgz#6cfb751fa66f858dcffd8d915043b34df69d48f9"
+  integrity sha512-zFzW80iYSSJm4V185g3ItJQ96lBZ2RDO8O8qmRiPAAVKYXJeHfDQN2ITdtLlV+CjSi9Lo7zVW9xGt9CPCx7J6A==
+  dependencies:
+    "@formatjs/fast-memoize" "3.1.7"
+    "@formatjs/icu-messageformat-parser" "3.5.23"
 
 ip-address@^10.1.1:
   version "10.7.6"
@@ -4813,6 +4993,36 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
+negotiator@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-1.1.0.tgz#16e003d0db4ac24fd9df168edf871625deeae3df"
+  integrity sha512-NMPBRMJgiQHjbd8phG3Vebdx4kZ1H121rbl5IkMqeOsahptB9BKo/d7oJ3zTXqTgagn2bWlNSXkh0QUGM31RYg==
+  dependencies:
+    content-type "^2.1.0"
+
+next-intl-swc-plugin-extractor@4.15.1:
+  version "4.15.1"
+  resolved "https://registry.yarnpkg.com/next-intl-swc-plugin-extractor/-/next-intl-swc-plugin-extractor-4.15.1.tgz#27d0bf64b687296675cf344431b4e838c41d26b1"
+  integrity sha512-n+CrfyQ3obIpZoaHtlHvtTLg6EuFcmSC3c71Yv0Kh4/5zenBJ8WeYP/xAnsiwQjZcaK9zie0SHwWeIG+5OJaBw==
+
+next-intl@^4.15.3:
+  version "4.15.3"
+  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-4.15.3.tgz#5dc3516bea64a51f711ce612bb7ae9dbca4480a4"
+  integrity sha512-kvD3eTPydChHX0VN98NuCfyMs4Vq2/Fw/mJimX19jP3Z8uo0XxRvY/kecewMCvNWDRePNt4zz1kPus4d6Tv1KA==
+  dependencies:
+    "@eloqnt/config" "~0.1.2"
+    "@eloqnt/extractor" "~0.1.0"
+    "@eloqnt/format-json" "~0.1.1"
+    "@eloqnt/format-po" "~0.1.2"
+    "@eloqnt/messages" "~0.1.0"
+    "@formatjs/intl-localematcher" "^0.8.1"
+    "@parcel/watcher" "^2.6.0"
+    "@swc/core" "~1.16.0"
+    icu-minify "^4.15.2"
+    negotiator "^1.0.0"
+    next-intl-swc-plugin-extractor "4.15.1"
+    use-intl "^4.15.1"
+
 next@16.4.6:
   version "16.4.6"
   resolved "https://registry.yarnpkg.com/next/-/next-16.4.6.tgz#ce48f58e195a8eb224e58a2d136451f17c19d5cf"
@@ -5181,6 +5391,11 @@ pkg-up@^3.1.0:
   integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   dependencies:
     find-up "^3.0.0"
+
+po-parser@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/po-parser/-/po-parser-2.2.0.tgz#93686f271ee9ad1a5ed096f15cb2723232cf307c"
+  integrity sha512-NdTrKgh0oO7+y+RFX8KKhOB438x/j94UGXEFzl/7pHH0JjWSn42iJ9tgmPksIO6n1JKDHmNDcejPJfKspljB9g==
 
 possible-typed-array-names@^1.0.0, possible-typed-array-names@^1.1.0:
   version "1.1.0"
@@ -6213,6 +6428,16 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-intl@^4.15.1:
+  version "4.15.1"
+  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-4.15.1.tgz#063dec89f33535eefc09533f1674c2f316678a2e"
+  integrity sha512-WJwcDTRzrg4JaEu3Jl1oEEXu5fLkWh+R8jZAhEYrTWMYqGYExKAi51MwtSBZZpYa7HzqluJPx2jmEap21kQlUQ==
+  dependencies:
+    "@formatjs/fast-memoize" "^3.1.0"
+    "@schummar/icu-type-parser" "1.21.5"
+    icu-minify "^4.15.1"
+    intl-messageformat "^11.1.0 || ^12.0.0"
 
 use-sync-external-store@^1.7.0:
   version "1.7.0"

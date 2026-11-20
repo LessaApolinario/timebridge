@@ -1,0 +1,136 @@
+{
+  "Metadata": {
+    "title": "TimeBridge | 时区比较",
+    "description": "比较不同城市的当地时间，转换日期和时间，并查找适合跨国会议的共同时间。"
+  },
+  "Home": {
+    "title": "时区比较",
+    "aboutTitle": "时区比较原理",
+    "about": "TimeBridge 将同一时刻转换为不同城市的本地时间，并根据所选日期使用各时区的 UTC 偏移量，包括夏令时变化。",
+    "loading": "正在加载时区比较工具…"
+  },
+  "Header": {
+    "home": "TimeBridge 首页",
+    "navigation": "主导航",
+    "cities": "城市",
+    "planner": "会议规划",
+    "language": "语言"
+  },
+  "ReferenceClock": {
+    "live": "实时",
+    "selected": "所选时间",
+    "timeLabel": "{city}的参考时间：{time}",
+    "location": "<country>{countryName} · </country>{city}",
+    "clockFormat": "时钟格式",
+    "hourOption": "{hours} 小时制"
+  },
+  "Clock": {
+    "am": "上午",
+    "pm": "下午"
+  },
+  "CityCard": {
+    "dayBefore": "前一天",
+    "dayAfter": "后一天",
+    "daysBefore": "{count} 天前",
+    "daysAfter": "{count} 天后",
+    "favorite": "收藏{city}",
+    "reference": "参考城市",
+    "setReference": "设为参考城市",
+    "referenceLabel": "将{city}设为参考城市",
+    "moveBefore": "将{city}前移",
+    "moveAfter": "将{city}后移",
+    "replace": "更换{city}",
+    "remove": "移除{city}"
+  },
+  "Comparison": {
+    "title": "当地时间",
+    "description": "同时比较 2 至 5 个城市。",
+    "draft": "时钟和城市卡片显示上次确认的时间。",
+    "cancel": "取消更换"
+  },
+  "CitySelector": {
+    "replace": "更换{city}",
+    "title": "添加城市",
+    "limit": "已达到 5 个城市的上限。请移除或更换一个城市后继续。",
+    "search": "按城市或国家搜索",
+    "placeholder": "例如：巴西或东京",
+    "city": "城市",
+    "noOptions": "无可选项",
+    "deviceZone": "设备时区",
+    "confirm": "确认更换",
+    "add": "添加",
+    "empty": "未找到城市。",
+    "favorite": "已收藏"
+  },
+  "Converter": {
+    "date": "日期",
+    "time": "时间（24 小时制）",
+    "now": "现在",
+    "invalid": "请输入 1970 至 2099 年之间的日期，以及 HH:mm 格式的时间。",
+    "nonexistent": "由于时区偏移发生变化，{city}在当天没有这个时间。请选择其他时间。",
+    "ambiguous": "这个时间在{city}出现两次。请选择其中一次。",
+    "occurrence": "第 {index} 次 · {offset}"
+  },
+  "Share": {
+    "unavailable": "无法自动复制。请选中并复制下方文字。",
+    "timesCopied": "已复制时间。",
+    "copyTimes": "复制时间",
+    "linkCopied": "已复制链接。",
+    "copyLink": "复制链接",
+    "fallback": "待复制的文本"
+  },
+  "Planner": {
+    "title": "会议规划",
+    "referenceTimes": "{city}时间 · {date}",
+    "duration": "会议时长",
+    "minutes": "{minutes} 分钟",
+    "workingHours": "当地工作时间",
+    "start": "开始",
+    "end": "结束",
+    "invalidHours": "请使用 HH:mm 格式，且结束时间必须在同一天晚于开始时间。",
+    "suggestions": "{duration} 分钟会议的建议时段",
+    "noSuggestions": "没有可安排 {duration} 分钟会议的共同时间。请调整工作时间、日期或会议时长。",
+    "timePending": "请完成时间转换以更新会议规划。",
+    "hoursPending": "请调整工作时间以比较可用时间。",
+    "noIntervals": "当天没有可用时段。"
+  },
+  "Timeline": {
+    "title": "全天可用时间",
+    "legend": "可用时间图例",
+    "common": "所有城市均可用",
+    "working": "工作时间内",
+    "unavailable": "工作时间外",
+    "caption": "参考时区的可用时间，每个时段最长 30 分钟",
+    "city": "城市",
+    "range": "{start}（{startOffset}）至 {end}（{endOffset}）"
+  },
+  "Cities": {
+    "sao-paulo": "圣保罗",
+    "new-york": "纽约",
+    "london": "伦敦",
+    "shanghai": "上海",
+    "manaus": "马瑙斯",
+    "recife": "累西腓",
+    "buenos-aires": "布宜诺斯艾利斯",
+    "santiago": "圣地亚哥",
+    "bogota": "波哥大",
+    "mexico-city": "墨西哥城",
+    "los-angeles": "洛杉矶",
+    "chicago": "芝加哥",
+    "toronto": "多伦多",
+    "lisbon": "里斯本",
+    "paris": "巴黎",
+    "berlin": "柏林",
+    "madrid": "马德里",
+    "cairo": "开罗",
+    "johannesburg": "约翰内斯堡",
+    "dubai": "迪拜",
+    "new-delhi": "新德里",
+    "singapore": "新加坡",
+    "seoul": "首尔",
+    "tokyo": "东京",
+    "adelaide": "阿德莱德",
+    "sydney": "悉尼",
+    "auckland": "奥克兰"
+  }
+}

@@ -1,7 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react"
-
 import { CitySelector } from "@/components/timebridge/city-selector"
 import { citiesById, defaultCityIds } from "@/features/timezones/data/cities"
+import { fireEvent, screen } from "@testing-library/react"
+import { renderWithLocale as render } from "../../utils/render-with-locale"
 
 describe("CitySelector", () => {
   it("should search by city and country without requiring accents", () => {

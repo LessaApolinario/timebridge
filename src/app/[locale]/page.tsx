@@ -1,7 +1,10 @@
 import { SiteHeader } from "@/components/layout/site-header"
 import { Timebridge } from "@/components/timebridge/timebridge"
+import { useTranslations } from "next-intl"
 
 export default function Home() {
+  const t = useTranslations("Home")
+
   return (
     <div className="min-h-svh bg-frame px-2.5 py-3 sm:px-6 sm:py-6 lg:px-12 lg:py-12">
       <div className="mx-auto max-w-368 rounded-panel bg-background shadow-panel">
@@ -11,7 +14,7 @@ export default function Home() {
             id="page-title"
             className="text-sm font-medium tracking-wide text-muted-foreground"
           >
-            Comparador de fusos horários
+            {t("title")}
           </h1>
           <Timebridge />
           <section
@@ -22,12 +25,10 @@ export default function Home() {
               id="about-title"
               className="text-base font-semibold tracking-tight"
             >
-              Como funciona a comparação
+              {t("aboutTitle")}
             </h2>
             <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              O TimeBridge converte o mesmo instante entre cidades e aplica o
-              deslocamento UTC de cada fuso na data escolhida, incluindo
-              mudanças de horário de verão.
+              {t("about")}
             </p>
           </section>
         </main>

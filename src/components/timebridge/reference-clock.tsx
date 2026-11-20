@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button"
 import type { City } from "@/features/timezones/models/city"
 import type { ZonedTime } from "@/features/timezones/models/time-conversion"
-import { formatLocalDate } from "@/features/timezones/services/timezone-service"
+import { useLocalDate } from "@/i18n/use-local-date"
 import { formatClock, type HourFormat } from "@/lib/clock-format"
+import { useFormatter, useTranslations } from "next-intl"
 
 interface ReferenceClockProps {
   city: City
@@ -23,8 +24,20 @@ export function ReferenceClock({
   hourFormat,
   onHourFormatChange,
 }: ReferenceClockProps) {
+  const t = useTranslations("ReferenceClock")
+  const cityName = useTranslations("Cities")
+  const clockLabels = useTranslations("Clock")
+  const { displayName } = useFormatter()
+  const formatLocalDate = useLocalDate()
+
   const seconds = String(new Date(instant).getUTCSeconds()).padStart(2, "0")
-  const { digits, period } = formatClock(`${clock.time}:${seconds}`, hourFormat)
+
+  const { digits, period: meridiem } = formatClock(
+    `${clock.time}:${seconds}`,
+    hourFormat,
+  )
+
+  const period = meridiem && clockLabels(meridiem === "AM" ? "am" : "pm")
 
   return (
     <div className="@container">
@@ -34,11 +47,14 @@ export function ReferenceClock({
             aria-hidden="true"
             className={`size-1.5 rounded-full ${isLive ? "bg-signal" : "bg-muted-foreground"}`}
           />
-          {isLive ? "Ao vivo" : "Horário selecionado"}
+          {t(isLive ? "live" : "selected")}
         </p>
       </div>
       <time
-        aria-label={`Horário de referência em ${city.name}, ${period ? `${digits} ${period}` : digits}`}
+        aria-label={t("timeLabel", {
+          city: cityName(city.id),
+          time: period ? `${digits} ${period}` : digits,
+        })}
         dateTime={new Date(instant).toISOString()}
         className="flex items-baseline gap-1.5 whitespace-nowrap font-clock text-[clamp(1.75rem,26cqi,20rem)] font-semibold leading-[0.88] tracking-[-0.075em] tabular-nums sm:gap-3"
       >
@@ -55,10 +71,17 @@ export function ReferenceClock({
       <div className="mt-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 sm:mt-8">
         <div className="min-w-0">
           <p className="text-2xl leading-tight font-semibold tracking-tight sm:text-3xl">
-            {city.name}
-            <span className="font-normal text-muted-foreground">
-              , {city.country}
-            </span>
+            {t.rich("location", {
+              city: cityName(city.id),
+              country: (chunks) => {
+                return (
+                  <span className="font-normal text-muted-foreground">
+                    {chunks}
+                  </span>
+                )
+              },
+              countryName: displayName(city.countryCode, { type: "region" }),
+            })}
           </p>
           <p className="mt-1 flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
             <span className="first-letter:uppercase">
@@ -69,7 +92,7 @@ export function ReferenceClock({
           </p>
         </div>
         <fieldset className="flex shrink-0 rounded-full border border-border bg-background p-0.5">
-          <legend className="sr-only">Formato dos relógios</legend>
+          <legend className="sr-only">{t("clockFormat")}</legend>
           {hourFormats.map((format) => {
             return (
               <Button
@@ -82,7 +105,7 @@ export function ReferenceClock({
                   onHourFormatChange(format)
                 }}
               >
-                {format} h
+                {t("hourOption", { hours: format })}
               </Button>
             )
           })}

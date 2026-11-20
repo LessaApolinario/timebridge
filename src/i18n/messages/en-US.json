@@ -1,0 +1,136 @@
+{
+  "Metadata": {
+    "title": "TimeBridge | Time zone comparison",
+    "description": "Compare local times across cities, convert dates and find overlapping hours for international meetings."
+  },
+  "Home": {
+    "title": "Time zone comparison",
+    "aboutTitle": "How time zone comparison works",
+    "about": "TimeBridge converts the same instant across cities and applies each time zone’s UTC offset on the selected date, including daylight saving time changes.",
+    "loading": "Loading the time zone comparison…"
+  },
+  "Header": {
+    "home": "TimeBridge home",
+    "navigation": "Main navigation",
+    "cities": "Cities",
+    "planner": "Planner",
+    "language": "Language"
+  },
+  "ReferenceClock": {
+    "live": "Live",
+    "selected": "Selected time",
+    "timeLabel": "Reference time in {city}, {time}",
+    "location": "{city}<country>, {countryName}</country>",
+    "clockFormat": "Clock format",
+    "hourOption": "{hours} h"
+  },
+  "Clock": {
+    "am": "AM",
+    "pm": "PM"
+  },
+  "CityCard": {
+    "dayBefore": "Previous day",
+    "dayAfter": "Next day",
+    "daysBefore": "{count, plural, one {# day earlier} other {# days earlier}}",
+    "daysAfter": "{count, plural, one {# day later} other {# days later}}",
+    "favorite": "Favorite {city}",
+    "reference": "Reference",
+    "setReference": "Use as reference",
+    "referenceLabel": "Use {city} as reference",
+    "moveBefore": "Move {city} earlier",
+    "moveAfter": "Move {city} later",
+    "replace": "Replace {city}",
+    "remove": "Remove {city}"
+  },
+  "Comparison": {
+    "title": "Local times",
+    "description": "Compare 2 to 5 cities at a time.",
+    "draft": "The clock and city cards show the last confirmed time.",
+    "cancel": "Cancel replacement"
+  },
+  "CitySelector": {
+    "replace": "Replace {city}",
+    "title": "Add a city",
+    "limit": "You’ve reached the five-city limit. Remove or replace a city to continue.",
+    "search": "Search by city or country",
+    "placeholder": "e.g. Brazil or Tokyo",
+    "city": "City",
+    "noOptions": "No options",
+    "deviceZone": "device time zone",
+    "confirm": "Confirm replacement",
+    "add": "Add",
+    "empty": "No cities found.",
+    "favorite": "Favorite"
+  },
+  "Converter": {
+    "date": "Date",
+    "time": "Time (24 h)",
+    "now": "Now",
+    "invalid": "Enter a date between 1970 and 2099 and a time in HH:mm format.",
+    "nonexistent": "This time doesn’t exist in {city} on this date due to a time zone change. Choose another time.",
+    "ambiguous": "This time occurs twice in {city}. Choose which occurrence to use.",
+    "occurrence": "{index, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} occurrence · {offset}"
+  },
+  "Share": {
+    "unavailable": "Automatic copying is unavailable. Select and copy the text below.",
+    "timesCopied": "Times copied.",
+    "copyTimes": "Copy times",
+    "linkCopied": "Link copied.",
+    "copyLink": "Copy link",
+    "fallback": "Text to copy"
+  },
+  "Planner": {
+    "title": "Meeting planner",
+    "referenceTimes": "Times in {city} · {date}",
+    "duration": "Meeting duration",
+    "minutes": "{minutes} min",
+    "workingHours": "Local working hours",
+    "start": "Start",
+    "end": "End",
+    "invalidHours": "Use HH:mm and enter an end time after the start on the same day.",
+    "suggestions": "Suggestions for {duration}-minute meetings",
+    "noSuggestions": "No overlapping time for a {duration}-minute meeting. Adjust the working hours, date or duration.",
+    "timePending": "Finish the time conversion to update the planner.",
+    "hoursPending": "Adjust the working hours to compare availability.",
+    "noIntervals": "No time slots are available on this date."
+  },
+  "Timeline": {
+    "title": "Availability throughout the day",
+    "legend": "Availability legend",
+    "common": "Available for everyone",
+    "working": "Within working hours",
+    "unavailable": "Outside working hours",
+    "caption": "Availability in intervals of up to 30 minutes in the reference time zone",
+    "city": "City",
+    "range": "{start} ({startOffset}) to {end} ({endOffset})"
+  },
+  "Cities": {
+    "sao-paulo": "São Paulo",
+    "new-york": "New York",
+    "london": "London",
+    "shanghai": "Shanghai",
+    "manaus": "Manaus",
+    "recife": "Recife",
+    "buenos-aires": "Buenos Aires",
+    "santiago": "Santiago",
+    "bogota": "Bogotá",
+    "mexico-city": "Mexico City",
+    "los-angeles": "Los Angeles",
+    "chicago": "Chicago",
+    "toronto": "Toronto",
+    "lisbon": "Lisbon",
+    "paris": "Paris",
+    "berlin": "Berlin",
+    "madrid": "Madrid",
+    "cairo": "Cairo",
+    "johannesburg": "Johannesburg",
+    "dubai": "Dubai",
+    "new-delhi": "New Delhi",
+    "singapore": "Singapore",
+    "seoul": "Seoul",
+    "tokyo": "Tokyo",
+    "adelaide": "Adelaide",
+    "sydney": "Sydney",
+    "auckland": "Auckland"
+  }
+}

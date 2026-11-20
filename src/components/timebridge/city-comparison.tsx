@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button"
 import { citiesById, minimumCities } from "@/features/timezones/data/cities"
-import { formatLocalDate } from "@/features/timezones/services/timezone-service"
 import type { useTimebridge } from "@/hooks/use-timebridge"
+import { useLocalDate } from "@/i18n/use-local-date"
 import { timezones } from "@/lib/di/container"
 import { shareUrl } from "@/lib/url-state"
+import { useLocale, useTranslations } from "next-intl"
 import { useState } from "react"
 import { CityClockCard } from "./city-clock-card"
 import { CitySelector } from "./city-selector"
@@ -27,7 +28,13 @@ type CityComparisonProps = Pick<
 >
 
 export function CityComparison(controller: CityComparisonProps) {
+  const t = useTranslations("Comparison")
+  const cityName = useTranslations("Cities")
+  const locale = useLocale()
+  const formatLocalDate = useLocalDate()
+
   const [replaceId, setReplaceId] = useState<string>()
+
   const { state, reference, committedTime, draft, workDrafts } = controller
   const { cityIds, instant } = state
 
@@ -38,7 +45,7 @@ export function CityComparison(controller: CityComparisonProps) {
 
   const summary = cityTimes
     .map(({ city, clock }) => {
-      return `${city.name} · ${clock.time} (${clock.offset}) · ${formatLocalDate(clock.date)}`
+      return `${cityName(city.id)} · ${clock.time} (${clock.offset}) · ${formatLocalDate(clock.date)}`
     })
     .join("\n")
 
@@ -58,15 +65,15 @@ export function CityComparison(controller: CityComparisonProps) {
             id="clock-title"
             className="text-2xl font-semibold tracking-tight sm:text-4xl"
           >
-            Horários locais
+            {t("title")}
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Compare de 2 a 5 cidades ao mesmo tempo.
+            {t("description")}
           </p>
         </div>
         <ShareControls
           summary={summary}
-          link={shareUrl(window.location.origin, state)}
+          link={shareUrl(window.location.origin, state, `/${locale}`)}
           disableSummary={Boolean(draft)}
           disableLink={Boolean(draft) || workPending}
         />
@@ -76,7 +83,7 @@ export function CityComparison(controller: CityComparisonProps) {
           role="status"
           className="mb-3 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground"
         >
-          O relógio e os cartões mostram o último horário confirmado.
+          {t("draft")}
         </p>
       )}
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,13rem),1fr))] gap-3">
@@ -137,7 +144,7 @@ export function CityComparison(controller: CityComparisonProps) {
               setReplaceId(undefined)
             }}
           >
-            Cancelar troca
+            {t("cancel")}
           </Button>
         )}
       </div>

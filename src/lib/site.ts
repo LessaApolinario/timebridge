@@ -19,6 +19,3 @@ function resolveSiteUrl(value: string | undefined) {
 }
 
 export const siteUrl = resolveSiteUrl(process.env.SITE_URL)
-export const siteTitle = "TimeBridge | Comparador de fusos horários"
-export const siteDescription =
-  "Compare horários entre cidades, converta datas e encontre horários em comum para reuniões internacionais."

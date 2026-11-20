@@ -1,5 +1,6 @@
 "use client"
 
+import { useTranslations } from "next-intl"
 import { useSyncExternalStore } from "react"
 import { TimebridgeWorkspace } from "./timebridge-workspace"
 
@@ -16,6 +17,8 @@ function getServerSnapshot() {
 }
 
 export function Timebridge() {
+  const t = useTranslations("Home")
+
   const ready = useSyncExternalStore(
     subscribeToHydration,
     getClientSnapshot,
@@ -30,7 +33,7 @@ export function Timebridge() {
         id="comparador"
       >
         <p role="status" className="text-sm text-muted-foreground">
-          Carregando comparador de horários…
+          {t("loading")}
         </p>
       </section>
     )

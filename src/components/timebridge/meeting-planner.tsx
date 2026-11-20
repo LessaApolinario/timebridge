@@ -10,9 +10,10 @@ import type {
 } from "@/features/meetings/models/meeting"
 import { validWorkHours } from "@/features/meetings/services/availability-service"
 import type { City } from "@/features/timezones/models/city"
-import { formatLocalDate } from "@/features/timezones/services/timezone-service"
+import { useLocalDate } from "@/i18n/use-local-date"
 import { availability, timezones } from "@/lib/di/container"
 import { CalendarDays, Clock3 } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useMemo } from "react"
 import { OverlapTimeline } from "./overlap-timeline"
 
@@ -37,6 +38,10 @@ export function MeetingPlanner({
   onDurationChange,
   onWorkChange,
 }: MeetingPlannerProps) {
+  const t = useTranslations("Planner")
+  const cityName = useTranslations("Cities")
+  const formatLocalDate = useLocalDate()
+
   const result = useMemo(() => {
     return availability.calculate(date, reference.zone, participants, duration)
   }, [date, reference.zone, participants, duration])
@@ -61,14 +66,17 @@ export function MeetingPlanner({
             className="flex items-center gap-2 text-xl font-semibold tracking-tight"
           >
             <CalendarDays aria-hidden="true" className="size-5 text-primary" />{" "}
-            Planejador de reuniões
+            {t("title")}
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Horários em {reference.name} · {formatLocalDate(date)}
+            {t("referenceTimes", {
+              city: cityName(reference.id),
+              date: formatLocalDate(date),
+            })}
           </p>
         </div>
         <fieldset className="flex flex-wrap gap-1 rounded-lg bg-muted p-1">
-          <legend className="sr-only">Duração da reunião</legend>
+          <legend className="sr-only">{t("duration")}</legend>
           {durations.map((option) => {
             return (
               <Button
@@ -81,14 +89,14 @@ export function MeetingPlanner({
                   onDurationChange(option)
                 }}
               >
-                {option} min
+                {t("minutes", { minutes: option })}
               </Button>
             )
           })}
         </fieldset>
       </div>
       <div className="mt-5">
-        <h3 className="text-sm font-semibold">Jornadas locais</h3>
+        <h3 className="text-sm font-semibold">{t("workingHours")}</h3>
         <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {participants.map(({ city, hours }) => {
             const invalid = !validWorkHours(hours)
@@ -100,11 +108,11 @@ export function MeetingPlanner({
                 key={city.id}
               >
                 <legend className="px-1 text-xs font-semibold">
-                  {city.name}
+                  {cityName(city.id)}
                 </legend>
                 <div className="grid grid-cols-2 gap-2">
                   <Label className="grid gap-1 text-xs text-muted-foreground">
-                    Início
+                    {t("start")}
                     <Input
                       type="text"
                       maxLength={5}
@@ -119,7 +127,7 @@ export function MeetingPlanner({
                     />
                   </Label>
                   <Label className="grid gap-1 text-xs text-muted-foreground">
-                    Fim
+                    {t("end")}
                     <Input
                       type="text"
                       maxLength={5}
@@ -136,7 +144,7 @@ export function MeetingPlanner({
                 </div>
                 {invalid && (
                   <p id={errorId} className="mt-2 text-xs text-destructive">
-                    Use HH:mm com fim após o início no mesmo dia.
+                    {t("invalidHours")}
                   </p>
                 )}
               </fieldset>
@@ -158,7 +166,7 @@ export function MeetingPlanner({
               id="meeting-suggestions"
             >
               <Clock3 aria-hidden="true" className="size-4 text-primary" />{" "}
-              Sugestões para {duration} minutos
+              {t("suggestions", { duration })}
             </h3>
             {result.suggestions.length ? (
               <ul
@@ -185,8 +193,7 @@ export function MeetingPlanner({
               </ul>
             ) : (
               <p role="status" className="mt-2 text-sm text-muted-foreground">
-                Nenhum horário em comum para {duration} minutos. Ajuste as
-                jornadas, a data ou a duração.
+                {t("noSuggestions", { duration })}
               </p>
             )}
           </div>
@@ -194,10 +201,10 @@ export function MeetingPlanner({
       ) : (
         <p role="status" className="mt-5 text-sm text-muted-foreground">
           {timePending
-            ? "Conclua a conversão para atualizar o planejador."
+            ? t("timePending")
             : invalidHours
-              ? "Ajuste as jornadas para comparar a disponibilidade."
-              : "Não há intervalos disponíveis nessa data."}
+              ? t("hoursPending")
+              : t("noIntervals")}
         </p>
       )}
     </Card>

@@ -127,8 +127,8 @@ export function restoreShareState(
   return { cityIds, referenceId, duration, instant, work }
 }
 
-export function shareUrl(origin: string, state: ShareState) {
-  const url = new URL("/", origin)
+export function shareUrl(origin: string, state: ShareState, pathname = "/") {
+  const url = new URL(pathname, origin)
   const work = state.cityIds.map((id) => {
     const hours = state.work[id] ?? defaultWorkHours
     return `${id}~${hours.start}~${hours.end}`

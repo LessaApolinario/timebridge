@@ -3,6 +3,7 @@ import type {
   Participant,
 } from "@/features/meetings/models/meeting"
 import { timezones } from "@/lib/di/container"
+import { useTranslations } from "next-intl"
 import { useId } from "react"
 
 interface OverlapTimelineProps {
@@ -25,6 +26,8 @@ export function OverlapTimeline({
   participants,
   referenceZone,
 }: OverlapTimelineProps) {
+  const t = useTranslations("Timeline")
+  const cityName = useTranslations("Cities")
   const headingId = useId()
 
   const headings = slots.map(({ start, end }) => {
@@ -33,18 +36,23 @@ export function OverlapTimeline({
 
     return {
       ...local,
-      label: `${local.time} (${local.offset}) a ${finish.time} (${finish.offset})`,
+      label: t("range", {
+        start: local.time,
+        startOffset: local.offset,
+        end: finish.time,
+        endOffset: finish.offset,
+      }),
     }
   })
 
   return (
     <div className="mt-5">
       <h3 id={headingId} className="text-sm font-semibold">
-        Disponibilidade ao longo do dia
+        {t("title")}
       </h3>
       <ul
         className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground"
-        aria-label="Legenda da disponibilidade"
+        aria-label={t("legend")}
       >
         <li>
           <span
@@ -53,7 +61,7 @@ export function OverlapTimeline({
           >
             ✓
           </span>{" "}
-          Horário comum
+          {t("common")}
         </li>
         <li>
           <span
@@ -62,7 +70,7 @@ export function OverlapTimeline({
           >
             •
           </span>{" "}
-          Dentro da jornada
+          {t("working")}
         </li>
         <li>
           <span
@@ -71,7 +79,7 @@ export function OverlapTimeline({
           >
             –
           </span>{" "}
-          Fora da jornada
+          {t("unavailable")}
         </li>
       </ul>
       <div
@@ -84,10 +92,7 @@ export function OverlapTimeline({
           className="w-full table-fixed border-separate border-spacing-0.5 text-xs"
           style={{ minWidth: 112 + slots.length * 17 }}
         >
-          <caption className="sr-only">
-            Disponibilidade em intervalos de até 30 minutos, no fuso da
-            referência
-          </caption>
+          <caption className="sr-only">{t("caption")}</caption>
           <colgroup>
             <col className="w-28" />
             <col span={slots.length} />
@@ -98,7 +103,7 @@ export function OverlapTimeline({
                 scope="col"
                 className="sticky left-0 z-10 bg-card px-2 py-2 text-left font-medium text-muted-foreground"
               >
-                Cidade
+                {t("city")}
               </th>
               {headings.map(({ time, label }, index) => {
                 return (
@@ -130,15 +135,15 @@ export function OverlapTimeline({
                     scope="row"
                     className="sticky left-0 z-10 bg-card px-2 py-1 text-left font-medium"
                   >
-                    {city.name}
+                    {cityName(city.id)}
                   </th>
                   {slots.map((slot, index) => {
                     const working = slot.availableCityIds.includes(city.id)
                     const status = slot.common
-                      ? "Horário comum"
+                      ? t("common")
                       : working
-                        ? "Dentro da jornada"
-                        : "Fora da jornada"
+                        ? t("working")
+                        : t("unavailable")
                     const style = slot.common
                       ? slotColors.common
                       : working

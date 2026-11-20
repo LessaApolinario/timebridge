@@ -4,10 +4,8 @@ import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import type { City } from "@/features/timezones/models/city"
 import type { ZonedTime } from "@/features/timezones/models/time-conversion"
-import {
-  formatLocalDate,
-  localDayDifference,
-} from "@/features/timezones/services/timezone-service"
+import { localDayDifference } from "@/features/timezones/services/timezone-service"
+import { useLocalDate } from "@/i18n/use-local-date"
 import { formatClock, type HourFormat } from "@/lib/clock-format"
 import {
   ArrowLeft,
@@ -17,6 +15,7 @@ import {
   Star,
   X,
 } from "lucide-react"
+import { useFormatter, useTranslations } from "next-intl"
 
 interface CityClockCardProps {
   city: City
@@ -35,18 +34,6 @@ interface CityClockCardProps {
   onMove: (direction: -1 | 1) => void
 }
 
-function dayChangeLabel(days: number) {
-  if (days === -1) {
-    return "Dia anterior"
-  }
-
-  if (days === 1) {
-    return "Dia seguinte"
-  }
-
-  return days ? `${Math.abs(days)} dias ${days < 0 ? "antes" : "depois"}` : null
-}
-
 export function CityClockCard({
   city,
   clock,
@@ -63,10 +50,27 @@ export function CityClockCard({
   onRemove,
   onMove,
 }: CityClockCardProps) {
-  const dayChange = dayChangeLabel(
-    localDayDifference(clock.date, referenceDate),
-  )
-  const { digits, period } = formatClock(clock.time, hourFormat)
+  const t = useTranslations("CityCard")
+  const cityName = useTranslations("Cities")(city.id)
+  const clockLabels = useTranslations("Clock")
+  const { displayName } = useFormatter()
+  const formatLocalDate = useLocalDate()
+
+  const days = localDayDifference(clock.date, referenceDate)
+  const { digits, period: meridiem } = formatClock(clock.time, hourFormat)
+  const period = meridiem && clockLabels(meridiem === "AM" ? "am" : "pm")
+
+  function dayChangeLabel() {
+    if (days === -1) {
+      return t("dayBefore")
+    }
+
+    if (days === 1) {
+      return t("dayAfter")
+    }
+
+    return t(days < 0 ? "daysBefore" : "daysAfter", { count: Math.abs(days) })
+  }
 
   return (
     <Card
@@ -76,16 +80,17 @@ export function CityClockCard({
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <h3 className="text-lg leading-tight font-semibold">{city.name}</h3>
+          <h3 className="text-lg leading-tight font-semibold">{cityName}</h3>
           <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground group-data-reference/city:text-primary-foreground/80">
-            <MapPin aria-hidden="true" className="size-3.5" /> {city.country}
+            <MapPin aria-hidden="true" className="size-3.5" />{" "}
+            {displayName(city.countryCode, { type: "region" })}
           </p>
         </div>
         <Button
           type="button"
           variant="ghost"
           size="icon"
-          aria-label={`Favoritar ${city.name}`}
+          aria-label={t("favorite", { city: cityName })}
           aria-pressed={isFavorite}
           className="group-data-reference/city:hover:bg-primary-foreground/15"
           onClick={onFavorite}
@@ -116,9 +121,9 @@ export function CityClockCard({
       <p className="mt-1 text-xs break-all text-muted-foreground group-data-reference/city:text-primary-foreground/80">
         {city.zone}
       </p>
-      {dayChange && (
+      {days !== 0 && (
         <Badge variant="secondary" className="mt-2 rounded-md">
-          {dayChange}
+          {dayChangeLabel()}
         </Badge>
       )}
       <div className="mt-auto pt-4">
@@ -127,7 +132,7 @@ export function CityClockCard({
             variant="outline"
             className="mb-2 min-h-7 rounded-full border-primary-foreground/40 text-primary-foreground"
           >
-            Referência
+            {t("reference")}
           </Badge>
         ) : (
           <Button
@@ -136,9 +141,9 @@ export function CityClockCard({
             size="sm"
             className="mb-2 rounded-full"
             onClick={onReference}
-            aria-label={`Usar ${city.name} como referência`}
+            aria-label={t("referenceLabel", { city: cityName })}
           >
-            Usar como referência
+            {t("setReference")}
           </Button>
         )}
         <Separator
@@ -151,7 +156,7 @@ export function CityClockCard({
             size="icon"
             variant="ghost"
             disabled={!canMoveLeft}
-            aria-label={`Mover ${city.name} para antes`}
+            aria-label={t("moveBefore", { city: cityName })}
             onClick={() => {
               onMove(-1)
             }}
@@ -163,7 +168,7 @@ export function CityClockCard({
             size="icon"
             variant="ghost"
             disabled={!canMoveRight}
-            aria-label={`Mover ${city.name} para depois`}
+            aria-label={t("moveAfter", { city: cityName })}
             onClick={() => {
               onMove(1)
             }}
@@ -174,7 +179,7 @@ export function CityClockCard({
             type="button"
             size="icon"
             variant="ghost"
-            aria-label={`Trocar ${city.name}`}
+            aria-label={t("replace", { city: cityName })}
             onClick={onReplace}
           >
             <ArrowRightLeft aria-hidden="true" />
@@ -184,7 +189,7 @@ export function CityClockCard({
             size="icon"
             variant="ghost"
             disabled={!canRemove}
-            aria-label={`Remover ${city.name}`}
+            aria-label={t("remove", { city: cityName })}
             onClick={onRemove}
           >
             <X aria-hidden="true" />
