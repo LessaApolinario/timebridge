@@ -137,6 +137,12 @@
     @apply font-sans;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    html:has(:is(#cidades, #planejador):target) {
+      scroll-behavior: smooth;
+    }
+  }
+
   :is(button, select):not(:disabled, [aria-disabled="true"]) {
     @apply cursor-pointer;
   }
