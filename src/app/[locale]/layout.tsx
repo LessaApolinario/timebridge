@@ -1,10 +1,15 @@
+import { RegisterServiceWorker } from "@/components/layout/register-service-worker"
 import { routing } from "@/i18n/routing"
 import { siteUrl } from "@/lib/site"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { hasLocale, NextIntlClientProvider } from "next-intl"
 import { getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 import "../globals.css"
+
+export const viewport: Viewport = {
+  themeColor: "#ed4817",
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => {
@@ -33,6 +38,12 @@ export async function generateMetadata({
     metadataBase: siteUrl ? new URL(siteUrl) : undefined,
     title,
     description,
+    icons: {
+      apple: {
+        url: "/icons/timebridge-apple.png",
+        sizes: "180x180",
+      },
+    },
     alternates: {
       canonical: pathname,
       languages: {
@@ -75,6 +86,7 @@ export default async function RootLayout({
     <html lang={locale} className="h-full antialiased">
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <RegisterServiceWorker locale={locale} />
       </body>
     </html>
   )
