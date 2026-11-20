@@ -34,7 +34,7 @@ afterEach(() => {
 })
 
 describe("localized comparison", () => {
-  it("should search by a localized country and display the matching city", () => {
+  it("should search by a localized country and display the matching city", async () => {
     renderWithLocale(<Timebridge />, "zh-CN")
 
     expect(screen.getByRole("heading", { name: "会议规划" })).toBeVisible()
@@ -42,9 +42,14 @@ describe("localized comparison", () => {
     fireEvent.change(query, { target: { value: "日本" } })
 
     const cities = screen.getByRole("combobox", { name: "城市" })
-    const tokyo = within(cities).getByRole("option", { name: /东京 · 日本/ })
-    expect(cities).toHaveValue("tokyo")
-    expect(tokyo).toHaveProperty("selected", true)
+    expect(cities).toHaveTextContent("东京 · 日本")
+    cities.focus()
+    fireEvent.keyDown(cities, { key: "ArrowDown" })
+    const options = within(await screen.findByRole("listbox"))
+    expect(options.getByRole("option", { name: /东京 · 日本/ })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    )
   })
 
   it("should copy a localized link from a comparison opened at the legacy root", async () => {

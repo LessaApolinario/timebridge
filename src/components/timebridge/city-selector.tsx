@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { cities, maximumCities } from "@/features/timezones/data/cities"
 import type { City } from "@/features/timezones/models/city"
 import { MapPin, Plus, Search, Star } from "lucide-react"
@@ -74,11 +80,10 @@ export function CitySelector({
       )
     })
 
-  const activeCandidate = results.some(({ id }) => {
-    return id === candidateId
-  })
-    ? candidateId
-    : (results[0]?.id ?? "")
+  const activeCity =
+    results.find(({ id }) => {
+      return id === candidateId
+    }) ?? results[0]
 
   useEffect(() => {
     if (replacing) {
@@ -93,8 +98,8 @@ export function CitySelector({
       onSubmit={(event) => {
         event.preventDefault()
 
-        if (activeCandidate && !atLimit) {
-          onChoose(activeCandidate)
+        if (activeCity && !atLimit) {
+          onChoose(activeCity.id)
           setQuery("")
           setCandidateId("")
         }
@@ -139,39 +144,64 @@ export function CitySelector({
             </Label>
             <div className="grid min-w-0 gap-1.5">
               <Label htmlFor={selectId}>{t("city")}</Label>
-              <NativeSelect
-                id={selectId}
-                className="w-full min-w-0 [&>select]:min-h-10 [&>select]:bg-background"
-                disabled={!results.length}
-                value={activeCandidate}
-                onChange={(event) => {
-                  setCandidateId(event.target.value)
+              <Select
+                disabled={!activeCity}
+                value={activeCity?.id ?? null}
+                onValueChange={(value) => {
+                  setCandidateId(value ?? "")
                 }}
               >
-                {!results.length && (
-                  <NativeSelectOption value="">
-                    {t("noOptions")}
-                  </NativeSelectOption>
-                )}
-                {results.map((city) => {
-                  const prefix = favoriteIds.includes(city.id) ? "★ " : ""
-                  const suffix =
-                    city.id === suggestedId ? ` · ${t("deviceZone")}` : ""
+                <SelectTrigger id={selectId} className="w-full min-w-0">
+                  <SelectValue>
+                    <span className="min-w-0 truncate">
+                      {activeCity
+                        ? `${activeCity.name} · ${activeCity.country}`
+                        : t("noOptions")}
+                      {activeCity &&
+                        activeCity.id === suggestedId &&
+                        ` · ${t("deviceZone")}`}
+                    </span>
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent align="start" alignItemWithTrigger={false}>
+                  {results.map((city) => {
+                    const description =
+                      city.id === suggestedId
+                        ? `${city.country} · ${t("deviceZone")}`
+                        : city.country
+                    const label = `${city.name} · ${description}`
 
-                  return (
-                    <NativeSelectOption key={city.id} value={city.id}>
-                      {prefix}
-                      {city.name} · {city.country}
-                      {suffix}
-                    </NativeSelectOption>
-                  )
-                })}
-              </NativeSelect>
+                    return (
+                      <SelectItem
+                        key={city.id}
+                        value={city.id}
+                        label={label}
+                        aria-label={label}
+                      >
+                        <span className="flex min-w-0 flex-col gap-0.5 whitespace-normal">
+                          <span className="flex items-center gap-1.5 font-medium">
+                            {city.name}
+                            {favoriteIds.includes(city.id) && (
+                              <Star
+                                aria-hidden="true"
+                                className="size-3 text-signal"
+                              />
+                            )}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {description}
+                          </span>
+                        </span>
+                      </SelectItem>
+                    )
+                  })}
+                </SelectContent>
+              </Select>
             </div>
             <Button
               type="submit"
               className="min-h-10 rounded-full px-4"
-              disabled={!activeCandidate}
+              disabled={!activeCity}
             >
               <Plus aria-hidden="true" />
               {t(replacing ? "confirm" : "add")}
@@ -182,16 +212,12 @@ export function CitySelector({
               {t("empty")}
             </p>
           )}
-          {results.length > 0 && (
+          {activeCity && (
             <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-              {favoriteIds.includes(activeCandidate) && (
+              {favoriteIds.includes(activeCity.id) && (
                 <Star aria-label={t("favorite")} className="size-3" />
               )}
-              {
-                results.find(({ id }) => {
-                  return id === activeCandidate
-                })?.zone
-              }
+              {activeCity.zone}
             </p>
           )}
         </>

@@ -46,14 +46,14 @@ export function TimeConverter({
     <div className="mt-5 rounded-2xl border border-border bg-card">
       <div className="grid gap-3 p-3.5 sm:p-4">
         <div className="flex flex-wrap items-end gap-x-4 gap-y-3">
-          <Label htmlFor={dateId} className="grid gap-1">
+          <Label htmlFor={dateId} className="grid w-40 max-w-full gap-1">
             {t("date")}
             <Input
               id={dateId}
               type="date"
               min={minimumDate}
               max={maximumDate}
-              className="min-h-10 bg-background"
+              className="min-h-10 bg-background tabular-nums"
               value={local.date}
               aria-invalid={invalid}
               aria-describedby={resolution ? validationId : undefined}

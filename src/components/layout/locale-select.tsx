@@ -43,10 +43,7 @@ export function LocaleSelect() {
 
   return (
     <Select value={locale} onValueChange={changeLocale}>
-      <SelectTrigger
-        aria-label={t("language")}
-        className="min-h-10 w-auto rounded-full px-3.5 hover:bg-muted"
-      >
+      <SelectTrigger aria-label={t("language")}>
         <SelectValue>
           <LanguageLabel locale={locale} {...languages[locale]} />
         </SelectValue>

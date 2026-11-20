@@ -137,7 +137,54 @@
     @apply font-sans;
   }
 
+  :is(button, select):not(:disabled, [aria-disabled="true"]) {
+    @apply cursor-pointer;
+  }
+
   a:focus-visible {
     @apply rounded-sm outline-2 outline-offset-4 outline-primary;
   }
+}
+
+[data-slot="select-trigger"] {
+  @apply min-h-10 gap-3 rounded-lg bg-background px-3 text-left;
+}
+
+[data-slot="select-trigger"]:not([data-disabled]):hover {
+  @apply border-ring/60;
+}
+
+[data-slot="select-trigger"][aria-expanded="true"] {
+  @apply border-ring ring-2 ring-ring/20;
+}
+
+[data-slot="select-trigger"][aria-expanded="true"] > svg {
+  @apply rotate-180 text-signal;
+}
+
+[data-slot="select-content"] {
+  @apply overscroll-contain rounded-xl border border-border p-1.5 shadow-panel ring-0;
+  max-height: min(20rem, var(--available-height, 20rem));
+  scrollbar-color: var(--input) transparent;
+  scrollbar-width: thin;
+}
+
+[data-slot="select-item"] {
+  @apply min-h-9 rounded-md py-1.5 pr-8 pl-2.5;
+}
+
+[data-slot="select-item"] > :first-child {
+  @apply min-w-0;
+}
+
+[data-slot="select-item"]:not([data-disabled]) {
+  @apply cursor-pointer;
+}
+
+[data-slot="select-item"][data-selected] {
+  @apply bg-accent text-accent-foreground;
+}
+
+[data-slot="select-item"][data-highlighted] {
+  @apply bg-muted text-foreground inset-ring-1 inset-ring-ring/40;
 }

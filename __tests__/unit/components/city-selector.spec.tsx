@@ -4,7 +4,7 @@ import { fireEvent, screen } from "@testing-library/react"
 import { renderWithLocale as render } from "../../utils/render-with-locale"
 
 describe("CitySelector", () => {
-  it("should search by city and country without requiring accents", () => {
+  it("should search by city and country without requiring accents", async () => {
     const chooseCity = jest.fn()
     render(
       <CitySelector
@@ -18,19 +18,24 @@ describe("CitySelector", () => {
     })
 
     fireEvent.change(search, { target: { value: "toquio" } })
-    expect(
-      screen.getByRole("option", { name: /Tóquio · Japão/ }),
-    ).toHaveProperty("selected", true)
+    const trigger = screen.getByRole("combobox", { name: "Cidade" })
+    expect(trigger).toHaveTextContent("Tóquio · Japão")
     expect(screen.getByText("Asia/Tokyo")).toBeVisible()
 
     fireEvent.change(search, { target: { value: "brasil" } })
+    trigger.focus()
+    fireEvent.keyDown(trigger, { key: "ArrowDown" })
+    const recife = await screen.findByRole("option", {
+      name: "Recife · Brasil",
+    })
     expect(
       screen.queryByRole("option", { name: /São Paulo/ }),
     ).not.toBeInTheDocument()
-    fireEvent.change(screen.getByRole("combobox", { name: "Cidade" }), {
-      target: { value: "recife" },
-    })
-    fireEvent.submit(screen.getByRole("form", { name: "Adicionar cidade" }))
+    fireEvent.pointerDown(recife)
+    fireEvent.click(recife)
+    expect(trigger).toHaveTextContent("Recife · Brasil")
+    expect(chooseCity).not.toHaveBeenCalled()
+    fireEvent.click(screen.getByRole("button", { name: "Adicionar" }))
 
     expect(chooseCity).toHaveBeenCalledWith("recife")
     expect(search).toHaveValue("")
