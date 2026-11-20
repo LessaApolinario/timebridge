@@ -10,7 +10,7 @@ import {
 import { usePathname, useRouter } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
 import { hasLocale, useLocale, useTranslations } from "next-intl"
-import Image from "next/image"
+import { LanguageLabel } from "./language-label"
 
 type Locale = (typeof routing.locales)[number]
 
@@ -48,7 +48,7 @@ export function LocaleSelect() {
         className="min-h-10 w-auto rounded-full px-3.5 hover:bg-muted"
       >
         <SelectValue>
-          <LanguageLabel locale={locale} />
+          <LanguageLabel locale={locale} {...languages[locale]} />
         </SelectValue>
       </SelectTrigger>
       <SelectContent
@@ -57,34 +57,15 @@ export function LocaleSelect() {
         className="min-w-44"
       >
         {routing.locales.map((language) => {
+          const option = languages[language]
+
           return (
-            <SelectItem
-              key={language}
-              value={language}
-              label={languages[language].name}
-            >
-              <LanguageLabel locale={language} />
+            <SelectItem key={language} value={language} label={option.name}>
+              <LanguageLabel locale={language} {...option} />
             </SelectItem>
           )
         })}
       </SelectContent>
     </Select>
-  )
-}
-
-function LanguageLabel({ locale }: { locale: Locale }) {
-  const { name, flag } = languages[locale]
-
-  return (
-    <span lang={locale} className="inline-flex items-center gap-2">
-      <Image
-        src={flag}
-        alt=""
-        width={20}
-        height={15}
-        className="shrink-0 rounded-xs"
-      />
-      {name}
-    </span>
   )
 }
