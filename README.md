@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![TimeBridge icon](public/icons/timebridge-192.png)
 
-## Getting Started
+# TimeBridge
 
-First, run the development server:
+[![Read in Brazilian Portuguese (pt-BR)](https://img.shields.io/badge/Idioma-Portugu%C3%AAs%20do%20Brasil-0B5FFF?style=for-the-badge)](README.pt-BR.md)
+
+TimeBridge is a time zone comparison and meeting planner for distributed teams. See what time it is in different cities, convert a date and time, and find when everyone is available.
+
+Planning a call with people in São Paulo, New York, and London? Choose São Paulo as the reference city, set the working hours for each city, and find an overlap on the availability timeline. Enter the meeting's start time in the converter, then share the link so everyone can see it in their local time.
+
+## Features
+
+- **World clocks and time conversion.** Compare 2 to 5 cities in real time or choose a date and time. The converter uses each city's UTC offset for that date and handles skipped or repeated local times during daylight saving transitions.
+- **Meeting planner.** Set working hours for each city, see where they overlap on a timeline, and find slots for 30- or 60-minute meetings.
+- **Sharing.** Copy the local times as text or share a link that restores the cities, reference city, selected time, working hours, and meeting duration.
+- **Preferences and languages.** Save favorite cities, comparison settings, and the 12- or 24-hour clock format in your browser. The interface is available in English, Brazilian Portuguese, and Simplified Chinese.
+- **Installable web app.** In supported browsers, install TimeBridge as a progressive web app (PWA) and use it offline once the production app has finished caching during an online visit.
+
+## Run locally
+
+You'll need **Node.js 20.9 or later** and **Yarn Classic 1.22.22**.
 
 ```bash
-npm run dev
-# or
+git clone https://github.com/LessaApolinario/timebridge.git
+cd timebridge
+yarn install --frozen-lockfile
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [TimeBridge in English](http://localhost:3000/en-US).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can set `SITE_URL=http://localhost:3000` in `.env.local` for local development. For deployment, set `SITE_URL` to the public origin before building so that metadata and the sitemap use the correct address. See [`.env.example`](.env.example).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | What it does |
+| --- | --- |
+| `yarn lint` | Runs ESLint. |
+| `yarn test` | Runs the Jest test suite. |
+| `yarn build` | Creates a production build. |
+| `yarn start` | Starts the production server after the build. |
 
-## Learn More
+To try the offline experience locally, run `yarn build` followed by `yarn start` and open the app on localhost while online to let the service worker cache its resources.
 
-To learn more about Next.js, take a look at the following resources:
+## Technology
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js (App Router), React, TypeScript, and Tailwind CSS. The interface uses next-intl for localization, and time zone calculations use `Intl.DateTimeFormat`. Tests use Jest and Testing Library.
