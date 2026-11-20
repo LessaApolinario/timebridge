@@ -13,7 +13,7 @@ export function LanguageLabel({ locale, name, flag }: LanguageLabelProps) {
         src={flag}
         alt=""
         width={20}
-        height={15}
+        height={20}
         className="shrink-0 rounded-xs"
       />
       {name}
